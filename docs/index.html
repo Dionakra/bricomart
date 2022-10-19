@@ -32,29 +32,49 @@
                 <div class="px-2 my-2">
                   <div>
                     <p class="text-sm font-semibold" x-text="product.category"></p>
-                    <p x-text="product.name"></p>
+                    <p class="text-lg" x-text="product.name"></p>
                   </div>
 
                   <div class="mt-2">
-                    <p class="text-lg">Precios</p>
-
                     <p class="text-md px-1 font-semibold">Alcalá</p>
-                    <div class="px-2 text-sm  mb-2">
-                      <template x-for="price in product.prices.alcala.reverse()" :key="price.date">
-                        <p>
-                          <span x-text="price.date"></span> -
-                          <span class="font-bold" x-text="price.price"></span>
-                        </p>
+                    <div class="px-2 text-sm  mb-2" x-data="{retailer : product.prices.alcala}">
+                      <template x-for="(price, i) in retailer.reverse()" :key="price.date">
+                        <div class="flex">
+                          <div x-text="price.date"></div>&nbsp;-&nbsp;
+                          <div class="font-semibold" x-text="price.price"></div>
+
+                          <template x-if="i != retailer.length -1" >
+                            <template x-if="retailer[i].price - retailer[i+1].price < 0">
+                              <span class="text-green-600 font-bold pl-2"
+                                x-text="retailer[i].price - retailer[i+1].price"></span>
+                            </template>
+
+                            <template x-if="retailer[i].price - retailer[i+1].price > 0">
+                              <span class="text-red-600  font-bold pl-2"
+                                x-text="retailer[i].price - retailer[i+1].price"></span>
+                            </template>
+                          </template>
                       </template>
                     </div>
 
                     <p class="text-md px-1 font-semibold">Bormujos</p>
-                    <div class="px-2 text-sm">
-                      <template x-for="price in product.prices.bormujos.reverse()" :key="price.date">
-                        <p>
-                          <span x-text="price.date"></span> -
-                          <span class="font-bold" x-text="price.price"></span>
-                        </p>
+                    <div class="px-2 text-sm  mb-2" x-data="{retailer : product.prices.bormujos}">
+                      <template x-for="(price, i) in retailer.reverse()" :key="price.date">
+                        <div class="flex">
+                          <div x-text="price.date"></div>&nbsp;-&nbsp;
+                          <div class="font-semibold" x-text="price.price"></div>
+
+                          <template x-if="i != retailer.length -1" >
+                            <template x-if="retailer[i].price - retailer[i+1].price < 0">
+                              <span class="text-green-600 font-bold pl-2"
+                                x-text="retailer[i].price - retailer[i+1].price"></span>
+                            </template>
+
+                            <template x-if="retailer[i].price - retailer[i+1].price > 0">
+                              <span class="text-red-600  font-bold pl-2"
+                                x-text="retailer[i].price - retailer[i+1].price"></span>
+                            </template>
+                          </template>
                       </template>
                     </div>
                   </div>
